@@ -5,7 +5,7 @@ import os
 import sys
 
 def carica_config(cliente_nome):
-    with open("connessioni.json", "r") as f:
+    with open("connessioni-vpn.json", "r") as f:
         config = json.load(f)
     for cliente in config:
         if cliente["nome_cliente"].lower() == cliente_nome.lower():

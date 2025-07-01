@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.log
+*.rdp
+*.bak
+*.json
+connessioni-vpn.json

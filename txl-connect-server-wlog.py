@@ -23,9 +23,7 @@ console_format = logging.Formatter('[%(levelname)s] %(message)s')
 console_handler.setFormatter(console_format)
 logger.addHandler(console_handler)
 
-
 # === FUNZIONI ===
-
 def carica_config(cliente_nome):
     try:
         with open("connessioni-vpn.json", "r", encoding="utf-8") as f:
@@ -41,7 +39,6 @@ def carica_config(cliente_nome):
     logger.error(f"Cliente '{cliente_nome}' non trovato nel file JSON")
     return None
 
-
 def avvia_vpn(percorso, argomenti):
     comando = [percorso] + argomenti
     try:
@@ -50,8 +47,7 @@ def avvia_vpn(percorso, argomenti):
     except Exception as e:
         logger.exception("Errore durante l'avvio della VPN")
 
-
-def verifica_connessione(ip, tentativi=5, pausa=3):
+def verifica_connessione(ip, tentativi=2, pausa=3):
     for i in range(tentativi):
         logger.info(f"Verifica connessione a {ip} (tentativo {i + 1})...")
         risultato = subprocess.run(["ping", "-n", "1", ip], stdout=subprocess.DEVNULL)
@@ -63,7 +59,6 @@ def verifica_connessione(ip, tentativi=5, pausa=3):
     logger.error("Timeout nella connessione VPN.")
     return False
 
-
 def avvia_rdp(percorso_rdp):
     try:
         logger.info(f"Avvio RDP con file: {percorso_rdp}")
@@ -71,33 +66,9 @@ def avvia_rdp(percorso_rdp):
     except Exception as e:
         logger.exception("Errore durante l'avvio del desktop remoto")
 
-
 # === MAIN ===
-
-""" def main():
-    logger.info("Avvio script di connessione")
-
-    if len(sys.argv) != 2:
-        logger.error("Numero di argomenti errato. Uso: python script.py <nome_cliente>")
-        print("Uso: python script.py <nome_cliente>")
-        return
-
-    cliente_nome = sys.argv[1]
-    logger.info(f"Parametro ricevuto: {cliente_nome}")
-
-    config = carica_config(cliente_nome)
-    if not config:
-        logger.error("Configurazione non trovata. Interruzione.")
-        return
-
-    avvia_vpn(config["vpn_exe"], config.get("vpn_argomenti", []))
-    if verifica_connessione(config["test_ping"]):
-        avvia_rdp(config["rdp_file"])
-    else:
-        logger.error("Connessione VPN non riuscita. RDP non avviato.")
- """
-
 def main():
+    logger.info("=====================================================================")
     logger.info("Avvio script di connessione")
 
     if len(sys.argv) != 2:
@@ -115,7 +86,7 @@ def main():
 
     # Verifica preventiva: VPN già connessa?
     logger.info("Verifica preventiva connessione VPN...")
-    if verifica_connessione(config["test_ping"]):
+    if verifica_connessione(config["test_ping"], 1):
         logger.info("VPN già attiva. Procedo direttamente con RDP.")
         avvia_rdp(config["rdp_file"])
         return
@@ -124,7 +95,7 @@ def main():
     avvia_vpn(config["vpn_exe"], config.get("vpn_argomenti", []))
     input("[ATTENDERE] Premi Invio quando la VPN è connessa per procedere con la verifica...")
 
-    if verifica_connessione(config["test_ping"]):
+    if verifica_connessione(config["test_ping"], 3):
         avvia_rdp(config["rdp_file"])
     else:
         logger.error("Connessione VPN non riuscita. RDP non avviato.")

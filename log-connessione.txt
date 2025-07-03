@@ -30,3 +30,48 @@
 2025-07-01 16:55:03 [INFO] Verifica connessione a 10.151.140.2 (tentativo 1)...
 2025-07-01 16:55:03 [INFO] Connessione VPN attiva.
 2025-07-01 16:55:03 [INFO] Avvio RDP con file: C:\Users\rraimondi\Desktop\Remote Desktop\TXL\txl-rdp-server-appsp061fg1.rdp
+2025-07-01 17:20:11 [INFO] Avvio script di connessione
+2025-07-01 17:20:11 [INFO] Parametro ricevuto: Texel
+2025-07-01 17:20:11 [INFO] Verifica preventiva connessione VPN...
+2025-07-01 17:20:11 [INFO] Verifica connessione a 10.151.140.2 (tentativo 1)...
+2025-07-01 17:20:11 [INFO] Connessione VPN attiva.
+2025-07-01 17:20:11 [INFO] VPN già attiva. Procedo direttamente con RDP.
+2025-07-01 17:20:11 [INFO] Avvio RDP con file: C:\Users\rraimondi\Desktop\Remote Desktop\TXL\txl-rdp-server-appsp061fg1.rdp
+2025-07-01 17:22:32 [INFO] =====================================================================
+2025-07-01 17:22:32 [INFO] Avvio script di connessione
+2025-07-01 17:22:32 [INFO] Parametro ricevuto: Texel
+2025-07-01 17:22:32 [INFO] Verifica preventiva connessione VPN...
+2025-07-01 17:22:32 [INFO] Verifica connessione a 10.151.140.2 (tentativo 1)...
+2025-07-01 17:22:39 [ERROR] Timeout nella connessione VPN.
+2025-07-01 17:22:39 [INFO] Avvio VPN: C:\Program Files\Fortinet\FortiClient\FortiClient.exe connect Texel
+2025-07-01 17:23:30 [INFO] Verifica connessione a 10.151.140.2 (tentativo 1)...
+2025-07-01 17:23:30 [INFO] Connessione VPN attiva.
+2025-07-01 17:23:30 [INFO] Avvio RDP con file: C:\Users\rraimondi\Desktop\Remote Desktop\TXL\txl-rdp-server-appsp061fg1.rdp
+2025-07-01 17:26:22 [INFO] =====================================================================
+2025-07-01 17:26:22 [INFO] Avvio script di connessione
+2025-07-01 17:26:22 [INFO] Parametro ricevuto: Texel
+2025-07-01 17:26:22 [INFO] Verifica preventiva connessione VPN...
+2025-07-01 17:26:22 [INFO] Verifica connessione a 10.151.140.2 (tentativo 1)...
+2025-07-01 17:26:29 [ERROR] Timeout nella connessione VPN.
+2025-07-01 17:26:29 [INFO] Avvio VPN: C:\Program Files\Fortinet\FortiClient\FortiClient.exe connect Texel
+2025-07-01 17:27:58 [INFO] Verifica connessione a 10.151.140.2 (tentativo 1)...
+2025-07-01 17:27:58 [INFO] Connessione VPN attiva.
+2025-07-01 17:27:58 [INFO] Avvio RDP con file: C:\Users\rraimondi\Desktop\Remote Desktop\TXL\txl-rdp-server-appsp061fg1.rdp
+2025-07-02 16:20:54 [INFO] Avvio script
+2025-07-02 16:20:54 [INFO] Parametro ricevuto: {'nome_cliente': 'Texel', 'vpn_exe': 'C:\\Program Files\\Fortinet\\FortiClient\\FortiClient.exe', 'vpn_argomenti': ['connect', 'Texel'], 'test_ping': '10.151.140.2', 'rdp_file': 'C:\\Users\\rraimondi\\Desktop\\Remote Desktop\\TXL\\txl-rdp-server-appsp061fg1.rdp'}
+2025-07-02 16:39:09 [INFO] Avvio script
+2025-07-02 16:39:09 [INFO] Parametro ricevuto: {'nome_cliente': 'Texel', 'vpn_exe': 'C:\\Program Files\\Fortinet\\FortiClient\\FortiClient.exe', 'vpn_argomenti': ['connect', 'Texel'], 'test_ping': '10.151.140.2', 'rdp_file': 'C:\\Users\\rraimondi\\Desktop\\Remote Desktop\\TXL\\txl-rdp-server-appsp061fg1.rdp'}
+2025-07-02 16:41:24 [INFO] Avvio script
+2025-07-02 16:41:24 [INFO] Parametro ricevuto: {'nome_cliente': 'Texel', 'vpn_exe': 'C:\\Program Files\\Fortinet\\FortiClient\\FortiClient.exe', 'vpn_argomenti': ['connect', 'Texel'], 'test_ping': '10.151.140.2', 'rdp_file': 'C:\\Users\\rraimondi\\Desktop\\Remote Desktop\\TXL\\txl-rdp-server-appsp061fg1.rdp'}
+2025-07-02 16:42:55 [INFO] Avvio script
+2025-07-02 16:42:55 [INFO] Parametro ricevuto: {'nome_cliente': 'Texel', 'vpn_exe': 'C:\\Program Files\\Fortinet\\FortiClient\\FortiClient.exe', 'vpn_argomenti': ['connect', 'Texel'], 'test_ping': '10.151.140.2', 'rdp_file': 'C:\\Users\\rraimondi\\Desktop\\Remote Desktop\\TXL\\txl-rdp-server-appsp061fg1.rdp'}
+2025-07-02 16:46:33 [INFO] Avvio script
+2025-07-02 16:46:33 [INFO] Parametro ricevuto: {'nome_cliente': 'Texel', 'vpn_exe': 'C:\\Program Files\\Fortinet\\FortiClient\\FortiClient.exe', 'vpn_argomenti': ['connect', 'Texel'], 'test_ping': '10.151.140.2', 'rdp_file': 'C:\\Users\\rraimondi\\Desktop\\Remote Desktop\\TXL\\txl-rdp-server-appsp061fg1.rdp'}
+2025-07-02 16:47:07 [INFO] Avvio script
+2025-07-02 16:47:07 [INFO] Parametro ricevuto: {'nome_cliente': 'Texel', 'vpn_exe': 'C:\\Program Files\\Fortinet\\FortiClient\\FortiClient.exe', 'vpn_argomenti': ['connect', 'Texel'], 'test_ping': '10.151.140.2', 'rdp_file': 'C:\\Users\\rraimondi\\Desktop\\Remote Desktop\\TXL\\txl-rdp-server-appsp061fg1.rdp'}
+2025-07-02 17:05:06 [INFO] Avvio script interattivo
+2025-07-02 17:05:13 [INFO] Cliente selezionato: Texel SP061FG2
+2025-07-02 17:05:13 [INFO] Avvio VPN: "C:\Program Files\Fortinet\FortiClient\FortiClient.exe" ['connect', 'Texel']
+2025-07-02 17:05:13 [INFO] Verifica connessione a 10.151.140.3 (tentativo 1)...
+2025-07-02 17:05:14 [INFO] Connessione VPN stabilita.
+2025-07-02 17:05:14 [INFO] Avvio RDP con file: C:\Users\rraimondi\Desktop\Remote Desktop\TXL\txl-rdp-server-appsp061fg2.rdp

@@ -15,30 +15,30 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-# Carica e filtra configurazioni
-def carica_configurazioni(filtro_riferimento=None):
+# Carica configurazioni
+def carica_configurazioni():
     with open("connessioni-vpn.json", "r") as f:
-        dati = json.load(f)
-    if filtro_riferimento:
-        dati = [c for c in dati if c.get("riferimento") == filtro_riferimento]
-    return dati
+        return json.load(f)
 
 # Verifica connessione
 def verifica_connessione(ip, tentativi=5, pausa=7, output=None):
     for i in range(tentativi):
         msg = f"Verifica connessione a {ip} (tentativo {i+1})..."
         logging.info(msg)
-        if output: output(msg)
+        if output:
+            output(msg)
         risultato = subprocess.run(["ping", "-n", "1", ip], stdout=subprocess.DEVNULL)
         if risultato.returncode == 0:
             msg = "Connessione VPN stabilita."
             logging.info(msg)
-            if output: output(f"[OK] {msg}")
+            if output:
+                output(f"[OK] {msg}")
             return True
         time.sleep(pausa)
     msg = "Timeout nella connessione VPN."
     logging.error(msg)
-    if output: output(f"[ERRORE] {msg}")
+    if output:
+        output(f"[ERRORE] {msg}")
     return False
 
 # Avvia connessione
@@ -46,7 +46,7 @@ def connetti(cliente, output_callback):
     logging.info(f"Avvio connessione per {cliente['nome_cliente']}")
     output_callback(f"Avvio VPN per {cliente['nome_cliente']}")
 
-    comando = f'"{cliente["vpn_exe"]}" {" ".join(cliente.get("vpn_argomenti", []))}'
+    comando = f'"{cliente["vpn_exe"]}" {cliente.get("vpn_argomenti", "")}'
     logging.info(f"Esecuzione: {comando}")
     subprocess.Popen(comando, shell=True)
 
@@ -60,12 +60,17 @@ def connetti(cliente, output_callback):
 
 # GUI principale
 class ConnessioneGUI:
-    def __init__(self, root, configs):
+    def __init__(self, root, filtro=None):
         self.root = root
         self.root.title("Connessione Remota")
-        self.root.geometry("400x300")
+        self.root.geometry("400x340")
 
-        self.configs = configs
+        tutte = carica_configurazioni()
+        if filtro:
+            self.configs = [c for c in tutte if c.get("riferimento", "").lower() == filtro.lower()]
+        else:
+            self.configs = tutte
+
         self.cliente_selezionato = tk.StringVar()
 
         tk.Label(root, text="Seleziona il cliente:", font=("Arial", 12)).pack(pady=10)
@@ -76,11 +81,11 @@ class ConnessioneGUI:
         self.bottone = tk.Button(root, text="Connetti", command=self.avvia_connessione)
         self.bottone.pack(pady=10)
 
-        self.output = tk.Text(root, height=10, width=45, state="disabled")
-        self.output.pack(pady=10)
-
         self.label_memo = tk.Label(root, text="", font=("Arial", 10), fg="blue", wraplength=380, justify="left")
         self.label_memo.pack(pady=5)
+
+        self.output = tk.Text(root, height=10, width=45, state="disabled")
+        self.output.pack(pady=10)
 
     def stampa_output(self, testo):
         self.output.configure(state="normal")
@@ -99,17 +104,17 @@ class ConnessioneGUI:
             self.stampa_output(f"[ERRORE] Configurazione non trovata per {nome}")
             return
 
+        memo = cliente.get("memo_password", "")
+        if memo:
+            self.label_memo.config(text=f"📌 {memo}")
+        else:
+            self.label_memo.config(text="")
+
         threading.Thread(target=connetti, args=(cliente, self.stampa_output), daemon=True).start()
 
-# Main
+# Avvia app
 if __name__ == "__main__":
-    filtro = sys.argv[1] if len(sys.argv) > 1 else None
-    configs = carica_configurazioni(filtro)
-
-    if not configs:
-        messagebox.showerror("Errore", f"Nessuna configurazione trovata per '{filtro}'.")
-        sys.exit(1)
-
+    riferimento = sys.argv[1] if len(sys.argv) > 1 else None
     root = tk.Tk()
-    app = ConnessioneGUI(root, configs)
+    app = ConnessioneGUI(root, filtro=riferimento)
     root.mainloop()

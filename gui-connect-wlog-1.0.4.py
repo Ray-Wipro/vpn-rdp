@@ -73,7 +73,7 @@ class ConnessioneGUI:
         tk.Label(root, text="Seleziona la connessione ", font=("Arial", 12)).pack(pady=8)
         self.combo = ttk.Combobox(root, textvariable=self.cliente_selezionato, state="readonly",
                                   values=[cfg["nome_cliente"] for cfg in self.configs])
-        self.title
+
         self.combo.pack(pady=5)
         self.combo.bind("<<ComboboxSelected>>", self.aggiorna_memo)
 

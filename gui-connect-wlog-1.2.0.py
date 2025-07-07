@@ -93,8 +93,7 @@ class ConnessioneGUI:
         self.impianto_selezionato = tk.StringVar()
         self.rdp_selezionato = tk.StringVar()
 
-        # Imposazione del carattere dell'impianto selezionato
-        self.label_impianto = tk.Label(root, text="", font=("Arial", 12, "bold"), fg="blue")
+        self.label_impianto = tk.Label(root, text="", font=("Arial", 10, "italic"), fg="gray")
         self.label_impianto.pack(pady=4)
 
         tk.Label(root, text="Seleziona impianto:", font=("Arial", 12)).pack(pady=5)
@@ -116,7 +115,7 @@ class ConnessioneGUI:
         self.memo_box.pack(pady=5)
         self.memo_box.configure(state="disabled")
 
-        self.output = tk.Text(root, height=16, width=80, state="disabled")
+        self.output = tk.Text(root, height=10, width=80, state="disabled")
         self.output.pack(pady=10)
 
         self.footer_label = tk.Label(root, text="gui-connect-wlog v1.2.0", font=("Arial", 8), fg="gray")
@@ -130,7 +129,7 @@ class ConnessioneGUI:
 
     def aggiorna_rdp(self, event=None):
         nome_impianto = self.impianto_selezionato.get()
-        self.label_impianto.config(text=f"{nome_impianto}")
+        self.label_impianto.config(text=f"Impianto selezionato: {nome_impianto}")
 
         impianto_cfg = next((c for c in self.configs if c.get("impianto") == nome_impianto), None)
         if not impianto_cfg:

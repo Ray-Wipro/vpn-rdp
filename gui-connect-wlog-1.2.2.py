@@ -7,7 +7,7 @@ import threading
 import logging
 import sys
 
-APP_VERSION = "1.2.1"
+APP_VERSION = "1.2.2"
 
 # Logging
 logging.basicConfig(
@@ -91,6 +91,7 @@ def connetti(cfg_impianto, cfg_rdp, output_callback):
     output_callback(f"Avvio connessione per {cfg_rdp['rdp_nome']}")
     avvia_vpn(cfg_impianto, output_callback)
 
+    # valori di default per i tentativi e la pausa
     tentativi = cfg_impianto.get("vpn_tentativi", 5)
     pausa = cfg_impianto.get("vpn_pausa", 7)
 
@@ -113,11 +114,11 @@ class ConnessioneGUI:
         self.impianto_selezionato = tk.StringVar()
         self.rdp_selezionato = tk.StringVar()
 
-        self.label_impianto = tk.Label(root, text="", font=("Arial", 12, "bold"), fg="blue")
+        self.label_impianto = tk.Label(root, text="", font=("Arial", 14, "bold"), fg="blue")
         self.label_impianto.pack(pady=4)
 
         tk.Label(root, text="Seleziona impianto:", font=("Arial", 12)).pack(pady=5)
-        impianti = [cfg.get("impianto", "[non definito]") for cfg in self.configs]
+        impianti = sorted([cfg.get("impianto", "[non definito]") for cfg in self.configs])
         self.combo_impianti = ttk.Combobox(root, textvariable=self.impianto_selezionato, state="readonly",
                                            values=impianti, width=60)
         self.combo_impianti.pack(pady=5)
@@ -131,8 +132,7 @@ class ConnessioneGUI:
         self.bottone.pack(pady=10)
 
         # visualizzazione del campo informazioni
-        # tk.Label(root, text="Memo:", font=("Arial", 10, "bold")).pack()
-        self.memo_box = tk.Text(root, height=6, width=86, wrap=tk.WORD, font=("Arial", 10), foreground="lightyellow", bg="black")
+        self.memo_box = tk.Text(root, height=6, width=86, wrap=tk.WORD, font=("Arial", 10), foreground="green", bg="black")
         self.memo_box.pack(pady=10)
         self.memo_box.configure(state="disabled")
 
@@ -146,7 +146,7 @@ class ConnessioneGUI:
         self.output.tag_config("ERROR", foreground="red")
         self.output.tag_config("DEBUG", foreground="blue")
 
-        self.footer_label = tk.Label(root, text="gui-connect-wlog v{APP_VERSION}", font=("Arial", 8), fg="gray")
+        self.footer_label = tk.Label(root, text=f"gui-connect-wlog v{APP_VERSION}", font=("Arial", 8), fg="gray")
         self.footer_label.pack(side="bottom", pady=5)
 
     def stampa_output(self, testo):

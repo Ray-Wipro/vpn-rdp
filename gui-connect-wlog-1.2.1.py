@@ -7,6 +7,8 @@ import threading
 import logging
 import sys
 
+APP_VERSION = "1.2.1"
+
 # Logging
 logging.basicConfig(
     filename='log-connessione.txt',
@@ -137,7 +139,7 @@ class ConnessioneGUI:
         self.output.tag_config("ERROR", foreground="red")
         self.output.tag_config("DEBUG", foreground="blue")
 
-        self.footer_label = tk.Label(root, text="gui-connect-wlog v1.2.0", font=("Arial", 8), fg="gray")
+        self.footer_label = tk.Label(root, text="gui-connect-wlog v{APP_VERSION}", font=("Arial", 8), fg="gray")
         self.footer_label.pack(side="bottom", pady=5)
 
     def stampa_output(self, testo):

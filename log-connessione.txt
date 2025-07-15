@@ -168,3 +168,15 @@
 2025-07-11 12:24:50 [ERROR] Timeout nella connessione VPN.
 2025-07-11 12:31:31 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
 2025-07-11 12:31:31 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MND\mnd-rdp-grlamfswm01.rdp
+2025-07-15 09:48:38 [INFO] Verifica connessione a 127.0.0.1 (tentativo 1)...
+2025-07-15 09:48:38 [INFO] Connessione VPN stabilita.
+2025-07-15 09:48:38 [INFO] Avvio RDP: 
+2025-07-15 09:50:43 [INFO] Verifica connessione a 127.0.0.1 (tentativo 1)...
+2025-07-15 09:50:43 [INFO] Connessione VPN stabilita.
+2025-07-15 09:50:43 [INFO] Avvio RDP: 
+2025-07-15 09:54:19 [INFO] Verifica connessione a 127.0.0.1 (tentativo 1)...
+2025-07-15 09:54:19 [INFO] Connessione VPN stabilita.
+2025-07-15 09:54:19 [INFO] Avvio RDP: 
+2025-07-15 09:59:31 [INFO] Verifica connessione a 127.0.0.1 (tentativo 1)...
+2025-07-15 09:59:55 [INFO] Connessione VPN stabilita.
+2025-07-15 09:59:55 [INFO] Avvio RDP: 

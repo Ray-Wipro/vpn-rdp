@@ -92,21 +92,47 @@ def avvia_vpn(cfg, output):
             output(f"[ERRORE] Metodo VPN non riconosciuto: {metodo}")
 
 # Connessione completa
+# def connetti(cfg_impianto, cfg_rdp, output_callback):
+#     output_callback(f"Avvio connessione per {cfg_rdp['rdp_nome']}")
+#     avvia_vpn(cfg_impianto, output_callback)
+
+#     # valori di default per i tentativi e la pausa
+#     tentativi = cfg_impianto.get("vpn_tentativi", 5)
+#     pausa = cfg_impianto.get("vpn_pausa", 7)
+
+#     if verifica_connessione(cfg_rdp["rdp_ip"], tentativi=tentativi, pausa=pausa, output=output_callback):
+#         msg = f"Avvio RDP: {cfg_rdp['rdp_file']}"
+#         output_callback(msg)
+#         logging.info(msg)
+#         subprocess.Popen(f'mstsc "{cfg_rdp["rdp_file"]}"', shell=True)
+#     else:
+#         output_callback("Connessione non riuscita. RDP non avviato.")
 def connetti(cfg_impianto, cfg_rdp, output_callback):
     output_callback(f"Avvio connessione per {cfg_rdp['rdp_nome']}")
     avvia_vpn(cfg_impianto, output_callback)
 
-    # valori di default per i tentativi e la pausa
     tentativi = cfg_impianto.get("vpn_tentativi", 5)
     pausa = cfg_impianto.get("vpn_pausa", 7)
 
-    if verifica_connessione(cfg_rdp["rdp_ip"], tentativi=tentativi, pausa=pausa, output=output_callback):
-        msg = f"Avvio RDP: {cfg_rdp['rdp_file']}"
-        output_callback(msg)
-        logging.info(msg)
-        subprocess.Popen(f'mstsc "{cfg_rdp["rdp_file"]}"', shell=True)
-    else:
-        output_callback("Connessione non riuscita. RDP non avviato.")
+    metodo = cfg_impianto.get("vpn_metodo")
+    match metodo:
+        case "CYL":
+            output_callback("[INFO] Connessione Cyolo: verifica ping disattivata.")
+            msg = f"Avvio RDP: {cfg_rdp['rdp_file']}"
+            output_callback(msg)
+            logging.info(msg)
+            subprocess.Popen(f'mstsc "{cfg_rdp["rdp_file"]}"', shell=True)
+        case _:
+            if cfg_rdp["rdp_file"] == "":
+                output_callback("[INFO] Nessun file RDP specificato, connessione VPN avviata senza RDP.")
+                return
+            if verifica_connessione(cfg_rdp["rdp_ip"], tentativi=tentativi, pausa=pausa, output=output_callback):
+                msg = f"Avvio RDP: {cfg_rdp['rdp_file']}"
+                output_callback(msg)
+                logging.info(msg)
+                subprocess.Popen(f'mstsc "{cfg_rdp["rdp_file"]}"', shell=True)
+            else:
+                output_callback("Connessione non riuscita. RDP non avviato.")
 
 # GUI
 class ConnessioneGUI:

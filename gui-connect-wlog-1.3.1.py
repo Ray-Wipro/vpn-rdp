@@ -7,7 +7,7 @@ import threading
 import logging
 import sys
 
-APP_VERSION = "1.2.3"
+APP_VERSION = "1.3.1"
 
 # Logging
 logging.basicConfig(
@@ -91,22 +91,6 @@ def avvia_vpn(cfg, output):
         case _:
             output(f"[ERRORE] Metodo VPN non riconosciuto: {metodo}")
 
-# Connessione completa
-# def connetti(cfg_impianto, cfg_rdp, output_callback):
-#     output_callback(f"Avvio connessione per {cfg_rdp['rdp_nome']}")
-#     avvia_vpn(cfg_impianto, output_callback)
-
-#     # valori di default per i tentativi e la pausa
-#     tentativi = cfg_impianto.get("vpn_tentativi", 5)
-#     pausa = cfg_impianto.get("vpn_pausa", 7)
-
-#     if verifica_connessione(cfg_rdp["rdp_ip"], tentativi=tentativi, pausa=pausa, output=output_callback):
-#         msg = f"Avvio RDP: {cfg_rdp['rdp_file']}"
-#         output_callback(msg)
-#         logging.info(msg)
-#         subprocess.Popen(f'mstsc "{cfg_rdp["rdp_file"]}"', shell=True)
-#     else:
-#         output_callback("Connessione non riuscita. RDP non avviato.")
 def connetti(cfg_impianto, cfg_rdp, output_callback):
     output_callback(f"Avvio connessione per {cfg_rdp['rdp_nome']}")
     avvia_vpn(cfg_impianto, output_callback)
@@ -163,15 +147,9 @@ class ConnessioneGUI:
         self.bottone = tk.Button(root, text="Connetti", command=self.avvia_connessione)
         self.bottone.pack(pady=10)
 
-        # visualizzazione del campo informazioni
-        # self.memo_box = tk.Text(root, height=6, width=86, wrap=tk.WORD, font=("Arial", 10), foreground="green", bg="black")
-        # self.memo_box.pack(pady=10)
-        # self.memo_box.configure(state="disabled")
-
         memo_frame = tk.Frame(root)
         memo_frame.pack(pady=5)
 
-#        self.memo_box = tk.Text(memo_frame, height=8, width=86, wrap=tk.WORD, font=("Arial", 10), foreground="green", bg="black")
         self.memo_box = tk.Text(
             memo_frame,
             height=8,
@@ -248,23 +226,6 @@ class ConnessioneGUI:
         self.memo_box.delete("1.0", tk.END)
         self.memo_box.insert(tk.END, memo)
         self.memo_box.configure(state="disabled")
-
-    # def avvia_connessione(self):
-    #     impianto = self.impianto_selezionato.get()
-    #     rdp_nome = self.rdp_selezionato.get()
-    #     if not impianto or not rdp_nome:
-    #         messagebox.showwarning("Attenzione", "Seleziona impianto e RDP.")
-    #         return
-
-    #     impianto_cfg = next((c for c in self.configs if c.get("impianto") == impianto), None)
-    #     rdp_cfg = next((r for r in impianto_cfg.get("rdp_list", []) if r["rdp_nome"] == rdp_nome), None)
-
-    #     if not impianto_cfg or not rdp_cfg:
-    #         self.stampa_output("[ERRORE] Configurazione mancante.")
-    #         return
-
-    #     threading.Thread(target=connetti, args=(impianto_cfg, rdp_cfg, self.stampa_output), daemon=True).start()
-
 
     def avvia_connessione(self):
         impianto = self.impianto_selezionato.get()

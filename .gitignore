@@ -4,4 +4,5 @@ __pycache__/
 *.rdp
 *.bak
 *.json
+*.bat
 connessioni-vpn.json

@@ -8,3 +8,4 @@ __pycache__/
 connessioni-vpn.json
 build/
 dist/
+*.spec

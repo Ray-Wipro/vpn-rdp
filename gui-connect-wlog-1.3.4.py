@@ -7,7 +7,7 @@ import threading
 import logging
 import sys
 
-APP_VERSION = "1.3.3"
+APP_VERSION = "1.3.4"
 
 # === Logging setup ===
 logging.basicConfig(
@@ -111,22 +111,71 @@ def avvia_vpn(cfg, output):
 
         # case Cisco Secure Client (CSC)
         case "CSC":
-            exe = cfg.get("vpn_exe", r"C:\\Program Files (x86)\\Cisco\\Cisco Secure Client\\VPN\\vpncli.exe")
-            server = cfg.get("vpn_server")
-            if exe and server:
-                try:
-                    # avvia connessione
-                    subprocess.Popen([exe, "connect", server])
-                    output("[INFO] Cisco Secure Client avviato. Inserire credenziali e confermare l'accesso nel prompt.")
-                    output("[DEBUG] Per disconnettere usare: vpncli disconnect")
-                except FileNotFoundError:
-                    output(f"[ERRORE] File non trovato: {exe}")
+            proc = avvia_vpn_csc(cfg, output)
+            if proc:
+                output("[INFO] VPN CSC avviata correttamente. Ricordarsi di scollegare con scollega_vpn_csc().")
             else:
-                output("[ERRORE] Configurazione incompleta per metodo CSC")
+                output("[ERRORE] Connessione VPN CSC non riuscita.")
 
         # case non riconosciuto
         case _:
             output(f"[ERRORE] Metodo VPN non riconosciuto: {metodo}")
+
+# Funzione helper per CSC
+def avvia_vpn_csc(cfg, output):
+    exe = cfg.get("vpn_exe", r"C:\Program Files (x86)\Cisco\Cisco Secure Client\VPN\vpncli.exe")
+    server = cfg.get("vpn_server")
+    user = cfg.get("vpn_user")
+    passwd = cfg.get("vpn_pass")
+    
+    if not all([exe, server, user, passwd]):
+        output("[ERRORE] Configurazione incompleta per VPN CSC")
+        return None
+
+    output(f"[VPN] Avvio connessione a {server}...")
+    
+    try:
+        proc = subprocess.Popen(
+            [exe, "connect", server],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True
+        )
+
+        # Invia username, password e conferma banner
+        proc.stdin.write(f"{user}\n")
+        proc.stdin.flush()
+        time.sleep(1)
+        proc.stdin.write(f"{passwd}\n")
+        proc.stdin.flush()
+        time.sleep(1)
+        proc.stdin.write("y\n")
+        proc.stdin.flush()
+
+        # Stampa alcune righe di output
+        for _ in range(10):
+            line = proc.stdout.readline()
+            if not line:
+                break
+            output(line.strip())
+
+        return proc
+
+    except Exception as e:
+        output(f"[ERRORE] Avvio VPN fallito: {e}")
+        return None
+
+# --- Funzione per scollegare VPN CSC ---
+def scollega_vpn_csc(cfg, output):
+    exe = cfg.get("vpn_exe", r"C:\Program Files (x86)\Cisco\Cisco Secure Client\VPN\vpncli.exe")
+    try:
+        subprocess.Popen([exe, "disconnect"])
+        output("[VPN] Disconnessione richiesta inviata.")
+    except FileNotFoundError:
+        output(f"[ERRORE] File non trovato: {exe}")
+    except Exception as e:
+        output(f"[ERRORE] Disconnessione fallita: {e}")
 
 # === Funzione per connettersi ===
 def connetti(cfg_impianto, cfg_rdp, output_callback):
@@ -166,6 +215,7 @@ class ConnessioneGUI:
         self.configs = carica_configurazioni()
         self.impianto_selezionato = tk.StringVar()
         self.rdp_selezionato = tk.StringVar()
+        self.vpn_process = None
 
         self.label_impianto = tk.Label(root, text="", font=("Arial", 14, "bold"), fg="blue")
         self.label_impianto.pack(pady=4)
@@ -181,8 +231,18 @@ class ConnessioneGUI:
         self.combo_rdp = ttk.Combobox(root, textvariable=self.rdp_selezionato, state="readonly", width=60)
         self.combo_rdp.pack(pady=5)
 
-        self.bottone = tk.Button(root, text="Connetti", command=self.avvia_connessione)
-        self.bottone.pack(pady=10)
+        # --- frame per i pulsanti ---
+        btn_frame = tk.Frame(root)
+        btn_frame.pack(pady=10)
+
+        # --- pulsante connetti ---
+        self.bottone = tk.Button(btn_frame, text="Connetti", command=self.avvia_connessione)
+        self.bottone.pack(side="left", pady=10)
+        
+        # --- pulsante disconnessione VPN CSC ---
+        self.bottone_disconnetti = tk.Button(btn_frame, text="Disconnetti VPN", command=self.disconnetti_vpn)
+        self.bottone_disconnetti.pack(side="left", pady=5, padx=5)
+        self.bottone_disconnetti.config(state="disabled")
 
         memo_frame = tk.Frame(root)
         memo_frame.pack(pady=5)
@@ -217,6 +277,14 @@ class ConnessioneGUI:
         self.footer_label = tk.Label(root, text=f"gui-connect-wlog v{APP_VERSION}", font=("Arial", 8), fg="gray")
         self.footer_label.pack(side="bottom", pady=5)
 
+    # --- stampa output con tag ---
+    def log_output(self, message, level="INFO"):
+        self.output.config(state="normal")
+        self.output.insert("end", message + "\n", level)
+        self.output.see("end")
+        self.output.config(state="disabled")
+
+    # --- stampa output con tag ---
     def stampa_output(self, testo):
         self.output.configure(state="normal")
 
@@ -240,6 +308,7 @@ class ConnessioneGUI:
         self.output.see(tk.END)
         self.output.configure(state="disabled")
 
+    # --- aggiorna rdp in base all'impianto selezionato ---
     def aggiorna_rdp(self, event=None):
         nome_impianto = self.impianto_selezionato.get()
         # visualizza il nome dell'impianto selezionato
@@ -258,12 +327,20 @@ class ConnessioneGUI:
         self.combo_rdp['values'] = rdp_nomi
         self.combo_rdp.set('')
 
+        # Abilita pulsante disconnessione solo se VPN CSC
+        if impianto_cfg.get("vpn_metodo") == "CSC":
+            self.bottone_disconnetti.config(state="normal")
+        else:
+            self.bottone_disconnetti.config(state="disabled")
+
+        # Aggiorna memo
         memo = impianto_cfg.get("memo", "")
         self.memo_box.configure(state="normal")
         self.memo_box.delete("1.0", tk.END)
         self.memo_box.insert(tk.END, memo)
         self.memo_box.configure(state="disabled")
 
+    # --- connessione VPN CSC ---
     def avvia_connessione(self):
         impianto = self.impianto_selezionato.get()
         rdp_nome = self.rdp_selezionato.get()
@@ -295,6 +372,22 @@ class ConnessioneGUI:
             return
 
         threading.Thread(target=connetti, args=(impianto_cfg, rdp_cfg, self.stampa_output), daemon=True).start()
+
+    # --- disconnessione VPN CSC ---
+    def disconnetti_vpn(self):
+        impianto = self.impianto_selezionato.get()
+        cfg = next((c for c in self.configs if c.get("impianto") == impianto), None)
+        if not cfg or cfg.get("vpn_metodo") != "CSC":
+            self.log_output("Disconnessione VPN non disponibile per questo metodo.", "WARNING")
+            return
+
+        try:
+    #        from tuo_script_vpn import scollega_vpn_csc  # importa la funzione di disconnessione
+            scollega_vpn_csc(cfg, self.log_output)
+            self.log_output("Richiesta di disconnessione inviata.", "INFO")
+            self.bottone_disconnetti.config(state="disabled")
+        except Exception as e:
+            self.log_output(f"Errore durante la disconnessione: {e}", "ERROR")
 
 # === Avvio app ===
 if __name__ == "__main__":

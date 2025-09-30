@@ -111,19 +111,29 @@ def avvia_vpn(cfg, output):
 
         # case Cisco Secure Client (CSC)
         case "CSC":
-            proc = avvia_vpn_csc(cfg, output)
-            if proc:
-                output("[INFO] VPN CSC avviata correttamente. Ricordarsi di scollegare con scollega_vpn_csc().")
-            else:
-                output("[ERRORE] Connessione VPN CSC non riuscita.")
+#            proc = avvia_vpn_csc(cfg, output)
+#            if proc:
+#                output("[INFO] VPN CSC avviata correttamente. Ricordarsi di scollegare con scollega_vpn_csc().")
+#            else:
+#                output("[ERRORE] Connessione VPN CSC non riuscita.")
+            apri_vpn_csc(cfg, output)
 
         # case non riconosciuto
         case _:
             output(f"[ERRORE] Metodo VPN non riconosciuto: {metodo}")
 
+# Funzione per avviare l'interfaccia grafica di Cisco Secure Client (CSC)
+def apri_vpn_csc(cfg, output):
+    exe = cfg.get("vpn_exe", r"C:\Program Files (x86)\Cisco\Cisco Secure Client\UI\csc_ui.exe")
+    try:
+        subprocess.Popen([exe])
+        output("[INFO] GUI Cisco Secure Client avviata. Inserire le credenziali manualmente.")
+    except Exception as e:
+        output(f"[ERRORE] Impossibile avviare GUI: {e}")
+
 # Funzione helper per CSC
 def avvia_vpn_csc(cfg, output):
-    exe = cfg.get("vpn_exe", r"C:\Program Files (x86)\Cisco\Cisco Secure Client\VPN\vpncli.exe")
+    exe = cfg.get("vpn_exe", r"C:\\Program Files (x86)\\Cisco\\Cisco Secure Client\\VPN\\vpncli.exe")
     server = cfg.get("vpn_server")
     user = cfg.get("vpn_user")
     passwd = cfg.get("vpn_pass")

@@ -413,3 +413,55 @@
 2025-10-15 09:59:47 [INFO] Verifica connessione a 10.0.0.13 (tentativo 3)...
 2025-10-15 09:59:48 [INFO] Connessione VPN stabilita.
 2025-10-15 09:59:48 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\FLT\flt-rdp-server-app.rdp
+2025-10-22 09:05:36 [INFO] Verifica connessione a 192.168.1.215 (tentativo 1)...
+2025-10-22 09:05:38 [INFO] Connessione VPN stabilita.
+2025-10-22 09:05:38 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\HGL\hgl-rdp-srvwms.rdp
+2025-10-22 09:17:19 [INFO] Verifica connessione a 192.168.1.215 (tentativo 1)...
+2025-10-22 09:17:21 [INFO] Connessione VPN stabilita.
+2025-10-22 09:17:21 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\HGL\hgl-rdp-srvwms.rdp
+2025-10-23 09:39:37 [INFO] Verifica connessione a 192.168.1.215 (tentativo 1)...
+2025-10-23 09:39:39 [INFO] Connessione VPN stabilita.
+2025-10-23 09:39:39 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\HGL\hgl-rdp-srvwms.rdp
+2025-10-23 09:40:45 [INFO] Verifica connessione a 192.168.1.215 (tentativo 1)...
+2025-10-23 09:40:46 [INFO] Connessione VPN stabilita.
+2025-10-23 09:40:46 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\HGL\hgl-rdp-srvwms.rdp
+2025-10-23 10:10:41 [INFO] Verifica connessione a 192.168.1.43 (tentativo 1)...
+2025-10-23 10:10:42 [INFO] Connessione VPN stabilita.
+2025-10-23 10:10:43 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\HGL\hgl-rdp-srvsql.rdp
+2025-10-31 08:24:30 [INFO] Verifica connessione a 192.168.1.43 (tentativo 1)...
+2025-10-31 08:24:32 [INFO] Connessione VPN stabilita.
+2025-10-31 08:24:32 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\HGL\hgl-rdp-srvsql.rdp
+2025-10-31 08:26:10 [INFO] Verifica connessione a 192.168.1.43 (tentativo 1)...
+2025-10-31 08:26:11 [INFO] Connessione VPN stabilita.
+2025-10-31 08:26:11 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\HGL\hgl-rdp-srvsql.rdp
+2025-10-31 08:29:58 [INFO] Verifica connessione a 192.168.1.43 (tentativo 1)...
+2025-10-31 08:29:59 [INFO] Connessione VPN stabilita.
+2025-10-31 08:29:59 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\HGL\hgl-rdp-srvsql.rdp
+2025-11-03 15:52:42 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-03 15:52:42 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MND\mnd-rdp-grlamfswm01.rdp
+2025-11-03 15:54:42 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-03 15:54:42 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MND\mnd-rdp-grlamfswm01.rdp
+2025-11-03 15:55:38 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-03 15:55:38 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MND\mnd-rdp-grlamfswm01.rdp
+2025-11-03 16:00:27 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-03 16:00:27 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MND\mnd-rdp-grlamfswm01.rdp
+2025-11-03 17:25:17 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-03 17:25:17 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MND\mnd-rdp-grlamfswm01.rdp
+2025-11-03 17:34:24 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-03 17:34:24 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MND\mnd-rdp-grlamfswm01.rdp
+2025-11-05 16:38:49 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-05 16:38:49 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MM\mm-rdp-tvwejlogas-as1.rdp
+2025-11-05 16:42:12 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-05 16:42:12 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MM\mm-rdp-tvwejlogas-as1.rdp
+2025-11-05 16:44:18 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-05 16:44:18 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MM\mm-rdp-tvwejlogas-as1.rdp
+2025-11-05 16:48:28 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-05 16:48:28 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MM\mm-rdp-tvwejlogas-as1.rdp
+2025-11-05 16:49:25 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-05 16:49:25 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MM\mm-rdp-tvwejlogas-as1.rdp
+2025-11-05 16:52:08 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-05 16:52:08 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MM\mm-rdp-tvwejlogas-as1.rdp
+2025-11-05 16:52:16 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-05 16:52:16 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MM\mm-rdp-tvwejlogas-as1.rdp
+2025-11-05 17:00:15 [INFO] Nessun tentativo di connessione, il tipo di VPN non richiede verifica.
+2025-11-05 17:00:15 [INFO] Avvio RDP: C:\Users\rraimondi\Desktop\Remote Desktop\MM\mm-rdp-tvwejlogas-as1.rdp

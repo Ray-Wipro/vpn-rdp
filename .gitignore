@@ -5,6 +5,7 @@ __pycache__/
 *.bak
 *.json
 *.bat
+*.txt
 connessioni-vpn.json
 build/
 dist/
